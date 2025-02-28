@@ -52,7 +52,7 @@ describe("Test rsa pkcs1v15 n = 64, k = 32", function () {
         let sign_array: bigint[] = bigint_to_array(64, 32, sign);
         let m_array: bigint[] = bigint_to_array(64, 32, m);
         let hashed_array: bigint[] = bigint_to_array(64, 4, hashed);
-
+        console.log("here",exp_array, sign_array, m_array, hashed_array);
         it('Testing ', async function () {
             let witness = await circuit.calculateWitness({
                 "exp": exp_array,
