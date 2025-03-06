@@ -1,8 +1,8 @@
 #!/bin/bash
 
 set -e  # Exit on error
-CIRCUIT_NAME="web2_auth_new"
-PTAU_SIZE=20  # Adjust this based on circuit size
+CIRCUIT_NAME="main"
+PTAU_SIZE=21  # Adjust this based on circuit size
 OUTPUT_DIR="./output"  # Directory to save the output files
 
 # Create output directory if it doesn't exist
@@ -26,7 +26,7 @@ fi
 
 # 1. Compile the circuit and specify the output directory
 echo "🔨 Compiling the circuit..."
-circom ./circuits/${CIRCUIT_NAME}.circom --r1cs --wasm --sym --output $OUTPUT_DIR
+circom ./circuits/templates/${CIRCUIT_NAME}.circom --r1cs --wasm --sym --output $OUTPUT_DIR
 
 # 2. Start Powers of Tau ceremony
 echo "🔑 Generating Powers of Tau (ptau)..."
