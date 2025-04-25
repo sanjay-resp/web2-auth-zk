@@ -305,13 +305,14 @@ template identity(
 
     // Compute the address seed
     signal input pepper;
+    signal output addr_seed;
     signal private_aud_val_hashed <== HashBytesToFieldWithLen(maxAudValueLen)(private_aud_value, private_aud_value_len);
     log("private aud val hash is: ", private_aud_val_hashed);
     signal uid_value_hashed <== HashBytesToFieldWithLen(maxUIDValueLen)(uid_value, uid_value_len);
     log("uid val hash is: ", uid_value_hashed);
     signal uid_name_hashed <== HashBytesToFieldWithLen(maxUIDNameLen)(uid_name, uid_name_len);
     log("uid name hash is: ", uid_name_hashed);
-    signal addr_seed <== Poseidon(4)([pepper, private_aud_val_hashed, uid_value_hashed, uid_name_hashed]);
+    addr_seed <== Poseidon(4)([pepper, private_aud_val_hashed, uid_value_hashed, uid_name_hashed]);
     log("addr seed is: ", addr_seed);
 
     // Check public inputs are correct 
@@ -320,7 +321,7 @@ template identity(
     log("override aud val hash is: ", override_aud_val_hashed);
     signal hashed_jwt_header <== HashBytesToFieldWithLen(maxJWTHeaderLen)(jwt_header_with_separator, header_len_with_separator);
     log("jwt header hash is: ", hashed_jwt_header);
-    signal hashed_pubkey_modulus <== Hash64BitLimbsToFieldWithLen(signature_len)(pubkey_modulus, 256); // 256 bytes per signature
+    signal output hashed_pubkey_modulus <== Hash64BitLimbsToFieldWithLen(signature_len)(pubkey_modulus, 256); // 256 bytes per signature
     log("pubkey hash is: ", hashed_pubkey_modulus);
     signal hashed_iss_value <== HashBytesToFieldWithLen(maxIssValueLen)(iss_value, iss_value_len);
     log("iss field hash is: ", hashed_iss_value);

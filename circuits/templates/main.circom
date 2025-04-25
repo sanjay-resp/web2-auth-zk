@@ -2,7 +2,7 @@ pragma circom 2.1.3;
 
 include "mainTemplate.circom";
 
-component main { public [public_inputs_hash] } = identity(
+component main { public [public_inputs_hash, temp_pubkey, exp_date, iat_value, exp_delta ] } = identity(
     192*8,      // maxJWTLen
     300,        // maxJWTHeaderLen
     192*8-64,   // maxJWTPayloadLen

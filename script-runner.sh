@@ -2,8 +2,8 @@
 
 set -e  # Exit on error
 CIRCUIT_NAME="main"
-PTAU_SIZE=21  # Adjust this based on circuit size
-OUTPUT_DIR="./output"  # Directory to save the output files
+PTAU_SIZE=21 # Adjust this based on circuit size
+OUTPUT_DIR="./output-${CIRCUIT_NAME}-c-final-second-iteration"  # Directory to save the output files
 
 # Create output directory if it doesn't exist
 mkdir -p $OUTPUT_DIR
@@ -26,7 +26,7 @@ fi
 
 # 1. Compile the circuit and specify the output directory
 echo "🔨 Compiling the circuit..."
-circom ./circuits/templates/${CIRCUIT_NAME}.circom --r1cs --wasm --sym --output $OUTPUT_DIR
+circom ./circuits/templates/${CIRCUIT_NAME}.circom --r1cs --wasm --sym --c --output $OUTPUT_DIR
 
 # 2. Start Powers of Tau ceremony
 echo "🔑 Generating Powers of Tau (ptau)..."
@@ -42,7 +42,7 @@ snarkjs powersoftau prepare phase2 ${OUTPUT_DIR}/pot${PTAU_SIZE}_0001.ptau ${OUT
 
 # 5. Generate zkey
 echo "📜 Running Groth16 setup..."
-snarkjs groth16 setup ${OUTPUT_DIR}/${CIRCUIT_NAME}.r1cs ${OUTPUT_DIR}/pot${PTAU_SIZE}_final.ptau ${OUTPUT_DIR}/${CIRCUIT_NAME}_0000.zkey -v
+snarkjs groth16 setup ${OUTPUT_DIR}/${CIRCUIT_NAME}_c.r1cs ${OUTPUT_DIR}/pot${PTAU_SIZE}_final.ptau ${OUTPUT_DIR}/${CIRCUIT_NAME}_0000.zkey -v
 
 # 6. Contribute randomness for zkey
 if [ -z "$2" ]; then
