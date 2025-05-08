@@ -3,7 +3,7 @@
 set -e  # Exit on error
 CIRCUIT_NAME="main"
 PTAU_SIZE=21 # Adjust this based on circuit size
-OUTPUT_DIR="./output-${CIRCUIT_NAME}-c-final-second-iteration"  # Directory to save the output files
+OUTPUT_DIR="./output-${CIRCUIT_NAME}-c-final-third-iteration"  # Directory to save the output files
 
 # Create output directory if it doesn't exist
 mkdir -p $OUTPUT_DIR
